@@ -1,0 +1,30 @@
+from tkinter import*
+
+app= Tk()
+app.title("PINBALL")
+etiqueta = Label(app, text="PINBALL GAME")
+app.geometry("800x400")
+
+fondo = PhotoImage(file = "southpark.gif")
+c=Canvas(app, width=800,height=400)
+c.create_image(0,0, image=fondo, anchor="nw")
+c.pack()
+
+def fun1():
+    app.destroy()
+    import ventana1 
+
+def fun2():
+    app.destroy()
+
+def fun3():
+    app.destroy()
+    
+    
+
+boton1 = Button(app, text = "jugar", font=("Arial",20), command = fun1).place(x=450,y=230)
+
+boton2 = Button(app, text = "salir", font=("Arial", 20), command = fun2).place(x=450,y=260)
+
+boton3 = Button(app, text = "opciones", font=("arial, 20"), command = fun3).place(x=450,y=290)
+app.mainloop()

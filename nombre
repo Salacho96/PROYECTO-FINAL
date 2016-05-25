@@ -1,0 +1,35 @@
+from tkinter import*
+##funciones
+def jugar1():
+    ventana2.destroy(ventana2)
+    import ventana1
+    
+def salir2():
+    ventana2.destroy(ventana2)
+    
+def guardar():
+     ventana2.destroy(ventana2)
+
+
+ventana2 = Tk()
+ventana2.geometry("500x200")
+ventana2.title("bienvenido")
+
+fondo = PhotoImage(file = "southpark1.gif")
+c=Canvas(ventana2, width=500,height=200)
+c.create_image(0,0, image=fondo, anchor="nw")
+c.pack()
+
+
+nomusuario=Label(text="DIGITE SU NOMBRE:",font=("Arial",20)).place(x=40,y=45)
+
+##lo del nombre
+entrada=StringVar()
+textusuario=Entry(ventana2,textvariable=entrada).place(x=250,y=47)
+
+##botones
+botonjugar2 = Button(ventana2, text = "A jugar", font=("Arial",20), command = jugar1).place(x=40,y=70)
+botonsalir2 = Button(ventana2, text = "salir", font=("Arial",20), command = salir2).place(x=150,y=70)
+botonguardar = Button(ventana2,text ="guardar", font=("Arial",20), command = guardar).place(x=220,y=70)
+ventana.mainloop()
+

@@ -1,0 +1,175 @@
+from tkinter import*
+import time
+import random
+
+app1= Tk()
+app1.title("PINBALL")
+Figure = Canvas(app1, width = 600, height = 600)
+Figure.pack()
+
+#margen del juego########
+Figure.create_line(100, 15, 100, 550)
+Figure.create_line(100, 550, 230, 550)
+Figure.create_line(370, 550, 500, 550)
+Figure.create_line(500, 550, 500, 15)
+Figure.create_line(500, 15, 100, 15)
+
+#canal de donde sale la bola##########
+Figure.create_line(465, 550, 465,185)
+Figure.create_line(500,35, 475,15)
+
+#obstaculos "los 3 circulos"###############
+
+Figure.create_oval(220, 120, 260, 160, fill="blue")
+Figure.create_oval(310, 120, 350, 160, fill="blue")
+Figure.create_oval(265, 95, 305, 55, fill="red")
+
+#los triangulos####################
+Figure.create_line(170,400, 245,420, 155,300, 170,400)
+Figure.create_line(425,400, 445,300, 355,420, 425,400)
+
+####paletas#################
+pi = Figure.create_polygon(230,546, 230,554, 282,573, fill="red")
+pd = Figure.create_polygon(370,546, 370,554, 318,573, fill="red")
+
+#####paleta izquierda############
+def pi_f(event):
+    global pi
+    Figure.delete(pi)
+    pi=Figure.create_polygon(230,546, 230,554, 282,553, fill="red")
+    Figure.update()
+    Figure.delete(pi)
+    Figure.after(50)
+    pi = Figure.create_polygon(230,546, 230,554, 282,573, fill="red")
+    
+####paleta derecha#############
+def pd_f(event):
+    global pd
+    Figure.delete(pd)
+    pd = Figure.create_polygon(370,546, 370,554, 318,553, fill="red")
+    Figure.update()
+    Figure.delete(pd)
+    Figure.after(50)
+    pd = Figure.create_polygon(370,546, 370,554, 318,573, fill="red")
+
+def moverbolita1(event):
+    moverbolita()
+puntaje =0
+#la bolita que se mueve#########
+def moverbolita():
+
+    global ball
+    x1, y1, x2, y2 = Figure.coords(ball["obj"])
+    x = (x1 + x2) // 2
+    y = (y1 + y2) // 2
+    dx = 4
+
+    coordenadas = Figure.find_overlapping(x1, y1, x2, y2)
+    print(coordenadas)
+
+    if x < 105 or x > 490:
+        ball["dx"] *= 0
+    if y < 25 or y > 545:
+        ball["dy"] *= -1
+
+#### colision con objetos##################
+    if coordenadas == (4, 7, 15):
+         ball["dx"] = -7
+         ball["dy"] = 3
+
+    if coordenadas == (5, 14):
+       ball["dx"] *= -1
+       ball["dy"] *= -1
+
+    if coordenadas == (1, 14):
+       ball["dx"] = -1
+       ball["dy"] = -1
+
+    if coordenadas == (4, 6, 15):
+       ball["dx"] = -1
+       ball["dy"] = -1
+
+    if coordenadas == (9, 14):
+        ball["dx"] *= 1
+        ball["dy"] *= -2
+
+    if coordenadas == (8,14):
+        ball["dx"] *= -2 
+        ball["dy"] *= -2
+
+    if coordenadas == (11,14):
+        ball["dx"] *= -1
+        ball["dy"] *= -1
+
+    if coordenadas == (9,15):
+        ball["dx"] = 3
+        ball["dy"] = 9
+
+    if coordenadas == (6,14):
+        ball["dx"] = -1
+        ball["dy"] = -1
+
+    if coordenadas == (3, 4, 15):
+        ball["dx"] *= 0
+        ball["dy"] *= -2
+
+    if coordenadas == (1,15):
+        ball["dx"] = 4
+        ball["dy"] = -1
+
+    if coordenadas == (8, 15):
+        ball["dx"] = 12
+        ball["dy"] = 15
+
+    if coordenadas == (11, 15):
+        ball["dx"] =  4
+        ball["dy"] = -10
+        
+    if coordenadas == (12,15):
+        ball["dx"] = -7
+        ball["dy"] = -2
+        
+    if coordenadas == (6,15):
+        ball["dx"] = -3
+        ball["dy"] = -2
+         
+    if coordenadas == (10,15):
+        ball["dx"] = 6
+        ball["dy"] = 10
+
+    if coordenadas == (8, 15):
+        ball["dx"] = 3
+        ball["dy"] = 8
+
+    if coordenadas == (14,15):
+       ball["dx"] = -2
+       ball["dy"] = -10
+
+    if coordenadas == (15,18):
+       ball["dx"] = -2
+       ball["dy"] = -10
+
+      
+       
+    Figure.move(ball["obj"],ball["dx"],ball["dy"])
+    app1.after(10,moverbolita)
+    ball["dy"] += 0.24
+    
+
+    ##tablero_Puntaje.config = (text =  "" + str(puntaje)) 
+
+ball = {"dx":4, "dy": 4, "obj":Figure.create_oval(495, 275, 475, 295, fill = "yellow")}
+
+tablero_Puntaje = Label( Figure, text = "", fg = "white", bg = "black")
+tablero_Puntaje.pack()
+Figure.create_window( 30, 230, window = tablero_Puntaje )
+
+#####botones de comando y paletas#########
+
+app1.bind("<space>", moverbolita1)
+app1.bind("<Left>", pi_f)
+app1.bind("<Right>",pd_f)
+
+app1.mainloop()
+
+

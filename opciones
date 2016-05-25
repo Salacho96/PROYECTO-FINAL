@@ -1,0 +1,23 @@
+from tkinter import*
+
+app3= Tk()
+app3.title("INSTRUCCIONES")
+etiqueta = Label(app3, text="PINBALL GAME")
+app3.geometry("800x400")
+
+
+
+def fun1():
+    app3.destroy()
+
+
+def fun2():
+    app3.destroy()
+
+lbl = Label(app3, text= "para comenzar la partida el jugador debera presionar la barra espaciadora que dara movimiento a la pelotita que se encuentra ubicada en la parte superior derecha, el jugador ademas de eso debera hacer uso de las palancas para asi poder evitar que la bola caiga al vacio y se acabe el juego ", font=('Ravial', 24))
+
+boton1 = Button(app3, text = "menu principal", font=("Arial",20), command = fun1).place(x=450,y=230)
+
+boton2 = Button(app3, text = "salir", font=("Arial", 20), command = fun2).place(x=450,y=260)
+
+app3.mainloop()
